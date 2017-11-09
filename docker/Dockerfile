@@ -45,23 +45,8 @@ RUN apt-get install -y python$PYTHON_VERSION python$PYTHON_VERSION-dev \
 RUN pip install tensorflow-gpu
 
 # CAFFE
-ENV CAFFE_CLONE_TAG=master
-ENV CAFFE_ROOT=${INSTALL_ROOT}/caffe
-ENV CAFFE_GIT_REPO=https://github.com/BVLC/caffe
-WORKDIR $CAFFE_ROOT
-RUN git clone -b ${CAFFE_CLONE_TAG} --depth 1 ${CAFFE_GIT_REPO} . && \
-    pip install -r python/requirements.txt && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make -j${NUM_CORES}
+RUN pip install mxnet
 
-# MXNET
-ENV MXNET_CLONE_TAG=v0.12.0
-ENV MXNET_ROOT=${INSTALL_ROOT}/mxnet
-ENV MXNET_GIT_REPO=https://github.com/apache/incubator-mxnet
-WORKDIR $MXNET_ROOT
-RUN git clone --recursive -b ${MXNET_CLONE_TAG} --depth 1 ${MXNET_GIT_REPO} . && \
-    make -j${NUM_CORES} USE_OPENCV=1 USE_BLAS=openblas USE_CUDA=1 USE_CUDA_PATH=/usr/local/cuda USE_CUDNN=1
 # To remove the following error caused by opencv
 # libdc1394 error: Failed to initialize libdc1394"
 CMD sh -c 'ln -s /dev/null /dev/raw1394'; bash
