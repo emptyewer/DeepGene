@@ -24,7 +24,7 @@ if [ -z $TAG ]; then
     TAG="latest"
 fi
 
-DOCKER_TAG="venkykrishna/dockerbase:$TAG"
+DOCKER_TAG="venkykrishna/deepgene:$TAG"
 DOCKERFILE="Dockerfile"
 DOCKER_BINARY="docker"
 
