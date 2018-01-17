@@ -126,7 +126,8 @@ RUN pip --no-cache-dir install git+git://github.com/fchollet/keras.git@2.1.3 \
     && rm -rf /tmp/* \
     && rm -rf /root/.cache
 
-### 9. Install MXNet
+COPY entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r//' /entrypoint.sh && chmod +x /entrypoint.sh
 
 RUN git clone --recursive https://github.com/apache/incubator-mxnet.git mxnet --branch 0.11.0
 RUN cd mxnet \
